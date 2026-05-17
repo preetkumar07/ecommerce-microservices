@@ -1,0 +1,16 @@
+# Node Modules (Ye bohot bhari hote hain aur server par khud install ho jate hain)
+node_modules/
+*/node_modules/
+
+# Environment Variables (Khufiya Tijori - Isko kabhi GitHub par nahi dalna)
+.env
+*.env
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
