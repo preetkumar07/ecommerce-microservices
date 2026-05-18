@@ -5,14 +5,14 @@ const UserRepository = require('../repositories/user.repository');
 const AppError = require('../errors/AppError');
 
 const AuthService = {
-  async register({ email, password }) {
+  async register({ email, password, role }) {
     const existing = await UserRepository.findByEmail(email);
     if (existing) {
       throw new AppError('Email already registered', 409, 'EMAIL_IN_USE');
     }
 
     const passwordHash = await bcrypt.hash(password, 12);
-    const user = await UserRepository.create({ email, passwordHash });
+    const user = await UserRepository.create({ email, passwordHash, role });
 
     const token = jwt.sign(
       { userId: user.id, role: user.role },
