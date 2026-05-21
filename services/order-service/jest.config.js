@@ -1,0 +1,1 @@
+module.exports = { testEnvironment: 'node', testTimeout: 15000, runInBand: true, forceExit: true, clearMocks: true };

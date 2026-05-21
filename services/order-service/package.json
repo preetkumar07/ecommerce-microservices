@@ -1,0 +1,37 @@
+{
+  "name": "order-service",
+  "version": "1.0.0",
+  "description": "Order placement and lifecycle management microservice",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jest --runInBand --forceExit",
+    "test:unit": "jest tests/unit --runInBand --forceExit",
+    "test:integration": "jest tests/integration --runInBand --forceExit",
+    "migrate:up": "node-pg-migrate up",
+    "migrate:down": "node-pg-migrate down",
+    "migrate:create": "node-pg-migrate create"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "helmet": "^7.1.0",
+    "joi": "^17.11.0",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "node-pg-migrate": "^6.2.2",
+    "pg": "^8.11.3",
+    "uuid": "^9.0.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "supertest": "^6.3.3"
+  }
+}
