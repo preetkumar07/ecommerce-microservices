@@ -1,0 +1,42 @@
+'use strict';
+
+const logger = require('../config/logger');
+
+const orderPlacedHandler    = require('../handlers/orderPlaced.handler');
+const orderConfirmedHandler = require('../handlers/orderConfirmed.handler');
+const orderCancelledHandler = require('../handlers/orderCancelled.handler');
+const orderShippedHandler   = require('../handlers/orderShipped.handler');
+const orderDeliveredHandler = require('../handlers/orderDelivered.handler');
+
+/**
+ * Route map — maps RabbitMQ routing keys to their handler functions.
+ * Adding a new event type: just add an entry here.
+ */
+const HANDLERS = {
+  'order.placed':    orderPlacedHandler,
+  'order.confirmed': orderConfirmedHandler,
+  'order.cancelled': orderCancelledHandler,
+  'order.shipped':   orderShippedHandler,
+  'order.delivered': orderDeliveredHandler,
+};
+
+/**
+ * Central message router.
+ * Called by rabbitmq.js for every incoming message.
+ *
+ * @param {string} routingKey
+ * @param {object} payload
+ */
+const handleMessage = async (routingKey, payload) => {
+  const handler = HANDLERS[routingKey];
+
+  if (!handler) {
+    logger.warn('No handler for routing key — discarding', { routingKey });
+    return; // ack & discard unknown events
+  }
+
+  logger.debug('Routing message', { routingKey, eventId: payload.eventId });
+  await handler(payload);
+};
+
+module.exports = { handleMessage };
