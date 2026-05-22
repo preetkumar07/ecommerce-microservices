@@ -7,13 +7,13 @@ const OrderController = {
   /** POST /api/v1/orders */
   async placeOrder(req, res, next) {
     try {
-      // 1. Naya Data Object Banao: req.body (items, address) + req.user.email
+      
       const orderData = {
         ...req.body,
         userEmail: req.user.email || req.user.userEmail // Token mein jo bhi naam ho
       };
 
-      // 2. Ab 'req.body' ki jagah yeh naya 'orderData' bhejo
+      
       const order = await OrderService.placeOrder(req.user.userId, orderData);
       res.status(201).json({ order });
     } catch (err) { 

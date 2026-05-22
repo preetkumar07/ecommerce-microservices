@@ -22,19 +22,7 @@ const ALLOWED_TRANSITIONS = {
 };
 
 const OrderService = {
-  /**
-   * Place a new order.
-   *
-   * This is the most critical operation — it must be atomic:
-   *   1. Insert the order row
-   *   2. Insert all order_item rows
-   *   3. Publish order.placed event to RabbitMQ
-   *
-   * The DB transaction ensures steps 1+2 are atomic.
-   * The event is published AFTER the transaction commits — if the publish fails,
-   * we log the error but do NOT roll back the order (the event can be retried).
-   * This is the "at-least-once" delivery pattern.
-   */
+  
   async placeOrder(userId, { items, shippingAddress, notes, userEmail }) {
     if (!items || items.length === 0) {
       throw new AppError('Order must contain at least one item', 400, 'EMPTY_ORDER');
