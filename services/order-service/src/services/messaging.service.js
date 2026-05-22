@@ -25,6 +25,7 @@ const MessagingService = {
       occurredAt:  new Date().toISOString(),
       orderId:     order.id,
       userId:      order.user_id,
+      userEmail:   order.userEmail,
       totalAmount: order.total_amount,
       items:       order.items,
       shippingAddress: order.shipping_address,

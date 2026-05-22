@@ -35,7 +35,7 @@ const OrderService = {
    * we log the error but do NOT roll back the order (the event can be retried).
    * This is the "at-least-once" delivery pattern.
    */
-  async placeOrder(userId, { items, shippingAddress, notes }) {
+  async placeOrder(userId, { items, shippingAddress, notes, userEmail }) {
     if (!items || items.length === 0) {
       throw new AppError('Order must contain at least one item', 400, 'EMPTY_ORDER');
     }
@@ -75,7 +75,7 @@ const OrderService = {
 
       order.items = orderItems;
     });
-
+    order.userEmail = userEmail;
     logger.info('Order placed', { orderId: order.id, userId, totalAmount });
 
     // --- Publish event AFTER commit (best-effort) ---

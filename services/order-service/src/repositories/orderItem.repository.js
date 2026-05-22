@@ -16,7 +16,7 @@ const OrderItemRepository = {
 
     // Build a multi-row VALUES clause: ($1,$2,...),($n,$n+1,...), ...
     const placeholders = items.map((_, i) => {
-      const base = i * 5;
+      const base = i * 6;
       return `($${base + 1}, $${base + 2}, $${base + 3}, $${base + 4}, $${base + 5}, $${base + 6})`;
     });
 

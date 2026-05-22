@@ -4,11 +4,21 @@ const OrderService = require('../services/order.service');
 
 const OrderController = {
   /** POST /api/v1/orders */
+  /** POST /api/v1/orders */
   async placeOrder(req, res, next) {
     try {
-      const order = await OrderService.placeOrder(req.user.userId, req.body);
+      // 1. Naya Data Object Banao: req.body (items, address) + req.user.email
+      const orderData = {
+        ...req.body,
+        userEmail: req.user.email || req.user.userEmail // Token mein jo bhi naam ho
+      };
+
+      // 2. Ab 'req.body' ki jagah yeh naya 'orderData' bhejo
+      const order = await OrderService.placeOrder(req.user.userId, orderData);
       res.status(201).json({ order });
-    } catch (err) { next(err); }
+    } catch (err) { 
+      next(err); 
+    }
   },
 
   /** GET /api/v1/orders — admin sees all, customer redirected to /my */
