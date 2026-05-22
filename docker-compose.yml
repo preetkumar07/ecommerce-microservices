@@ -30,7 +30,7 @@ services:
       RABBITMQ_DEFAULT_USER: app
       RABBITMQ_DEFAULT_PASS: secret
 
-  # 👇👇👇 YEH NAYA HISSA ADD KIYA HAI 👇👇👇
+  
   api-gateway:
     image: nginx:alpine
     ports:
