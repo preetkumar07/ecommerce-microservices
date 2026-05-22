@@ -25,10 +25,25 @@ services:
     image: rabbitmq:3-management
     ports:
       - "5672:5672"
-      - "15672:15672"   # Management UI browser mein yahan khulega
+      - "15672:15672"   # Management UI
     environment:
       RABBITMQ_DEFAULT_USER: app
       RABBITMQ_DEFAULT_PASS: secret
+
+  # 👇👇👇 YEH NAYA HISSA ADD KIYA HAI 👇👇👇
+  api-gateway:
+    image: nginx:alpine
+    ports:
+      - "8080:80"   # Hum NGINX ko port 8080 par access karenge
+    volumes:
+      - ./api-gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - postgres
+      - mongodb
+      - redis
+      - rabbitmq
 
 volumes:
   postgres_data:
