@@ -35,8 +35,17 @@ const handleMessage = async (routingKey, payload) => {
     return; // ack & discard unknown events
   }
 
-  logger.debug('Routing message', { routingKey, eventId: payload.eventId });
-  await handler(payload);
+  // 👇👇 Yahan humne TRY/CATCH laga diya hai 👇👇
+  try {
+    logger.debug('Routing message', { routingKey, eventId: payload.eventId });
+    await handler(payload);
+  } catch (err) {
+    // Agar email fail ho jaye, toh system crash nahi hoga aur na hi infinite loop banega
+    logger.error('Handler failed to process message — stopping infinite loop!', { 
+      routingKey, 
+      error: err.message 
+    });
+  }
 };
 
 module.exports = { handleMessage };
