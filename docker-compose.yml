@@ -6,8 +6,11 @@ services:
       POSTGRES_DB: ecommerce
       POSTGRES_USER: app
       POSTGRES_PASSWORD: secret
+      POSTGRES_MULTIPLE_DATABASES: ecommerce_orders,ecommerce_products,ecommerce_users
     ports: ["5432:5432"]
-    volumes: [postgres_data:/var/lib/postgresql/data]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sh:/docker-entrypoint-initdb.d/init-databases.sh
 
   mongodb:
     image: mongo:7
