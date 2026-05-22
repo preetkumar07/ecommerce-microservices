@@ -28,7 +28,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// <-- 2. ENGINE START KARNE KI COMMAND (Ye add ki hai) -->
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`🚀 User Service is running on port ${PORT}`);
