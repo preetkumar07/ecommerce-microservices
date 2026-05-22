@@ -9,15 +9,7 @@ const orderCancelledTpl = require('../templates/orderCancelled.template');
 const orderShippedTpl   = require('../templates/orderShipped.template');
 const orderDeliveredTpl = require('../templates/orderDelivered.template');
 
-/**
- * Central email service.
- * Each method accepts the raw event payload from RabbitMQ and sends the
- * appropriate email. The userEmail must be resolved before calling these
- * (in a real system you'd call user-service or store email in the event).
- *
- * For this project, we expect events to carry a `userEmail` field.
- * If missing, we log a warning and skip.
- */
+
 
 const guard = async (to, label, fn) => {
   if (!to) {

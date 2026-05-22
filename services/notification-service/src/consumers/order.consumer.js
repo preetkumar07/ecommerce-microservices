@@ -8,10 +8,7 @@ const orderCancelledHandler = require('../handlers/orderCancelled.handler');
 const orderShippedHandler   = require('../handlers/orderShipped.handler');
 const orderDeliveredHandler = require('../handlers/orderDelivered.handler');
 
-/**
- * Route map — maps RabbitMQ routing keys to their handler functions.
- * Adding a new event type: just add an entry here.
- */
+
 const HANDLERS = {
   'order.placed':    orderPlacedHandler,
   'order.confirmed': orderConfirmedHandler,
@@ -35,7 +32,6 @@ const handleMessage = async (routingKey, payload) => {
     return; // ack & discard unknown events
   }
 
-  // 👇👇 Yahan humne TRY/CATCH laga diya hai 👇👇
   try {
     logger.debug('Routing message', { routingKey, eventId: payload.eventId });
     await handler(payload);
